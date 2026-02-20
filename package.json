@@ -1,0 +1,27 @@
+{
+  "name": "automatic-programming-mit-llms",
+  "version": "1.0.0",
+  "description": "Reveal.js presentation project",
+  "scripts": {
+    "start": "http-server . -p 8000 -c-1",
+    "dev": "pnpm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manuel-woelker/automatic-programming-mit-llms.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/manuel-woelker/automatic-programming-mit-llms/issues"
+  },
+  "homepage": "https://github.com/manuel-woelker/automatic-programming-mit-llms#readme",
+  "dependencies": {
+    "reveal.js": "^5.2.1"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}
