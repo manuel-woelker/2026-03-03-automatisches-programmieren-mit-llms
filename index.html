@@ -9,6 +9,12 @@
     <link rel="stylesheet" href="node_modules/reveal.js/dist/theme/sky.css" id="theme" />
     <link rel="stylesheet" href="node_modules/reveal.js/plugin/highlight/monokai.css" />
     <style>
+      :root {
+        --r-heading-text-transform: none;
+        --r-heading-font: "Aptos", "Segoe UI", "Calibri", sans-serif;
+          --r-heading-letter-spacing: 0;
+      }
+
       .reveal .slides section.heading-big-iframe {
         --iframe-scale: 0.7;
         --iframe-header-offset: 8rem;
@@ -33,9 +39,12 @@
         max-height: none;
         height: calc((100% - var(--iframe-header-offset)) / var(--iframe-scale));
         border: 0;
+        outline: 3px solid var(--r-link-color, #2a76dd);
         transform: scale(var(--iframe-scale));
         transform-origin: top left;
       }
+
+      
     </style>
   </head>
   <body>
@@ -43,6 +52,7 @@
       <div class="slides">
         <section>
           <h2>Automatisches Programmieren mit LLMs</h2>
+            <img src="img/clippy.jpg" style="width: 50%; height: auto; border-radius: 16px;" />
           <p>Manuel Woelker - 2026-03-03</p>
         </section>
         <section>
@@ -84,12 +94,17 @@
           </div>
           <h1 class="fragment" data-fragment-index="0" style="margin: 0;">HYPE</h1>
           <h1 class="fragment" data-fragment-index="1" style="margin: 1em 0 0 0;">DOOM</h1>
+          <aside class="notes">
+            Zwei Arten von DOOM: AI-Slop und Entwickler werden überflüssig
+          </aside>
         </section>
           <section>
               <h2>Mal sehen was geht</h2>
                 <p class="fragment">Was kann man mit LLM-basierten, "automatischem Programmieren" machen?</p>
                 <p class="fragment">Regel: So wenig Code wie möglich schreiben.</p>
-
+              <aside class="notes">
+                  Proof of Concepts
+              </aside>
           </section>
           <section>
               <h2>Tools</h2>
@@ -102,13 +117,16 @@
 
           <!-- FELICO -->
           <section class="heading-big-iframe">
-              <h3>Skriptsprache + Interpreter (3 Tage)</h3>
+              <h3>Skriptsprache (3 Tage)</h3>
             <iframe class="fragment"
               src="https://manuel-woelker.github.io/felico/"
               title="Felico"
               loading="lazy"
               referrerpolicy="no-referrer"
             ></iframe>
+              <aside class="notes">
+                  Rust, automatischer Verpackung als Webassembly
+              </aside>
           </section>
 
           <!-- NOTENBANK -->
@@ -120,6 +138,9 @@
                       loading="lazy"
                       referrerpolicy="no-referrer"
               ></iframe>
+              <aside class="notes">
+                  ZOD Schema, Tests
+              </aside>
           </section>
 
           <section class="heading-big-iframe">
@@ -136,6 +157,9 @@
               <h3>+ Playwright E2E tests</h3>
               <img src="img/playwright.png"
               ></img>
+              <aside class="notes">
+                  Schnelle Testausführung durch unabhängige Testinstanzen
+              </aside>
           </section>
 
 
@@ -149,6 +173,9 @@
                       loading="lazy"
                       referrerpolicy="no-referrer"
               ></iframe>
+              <aside class="notes">
+                  Komplexe CSS Animationen, Kartenbeschreibungen in Markdown
+              </aside>
           </section>
 
           <!-- WIDEBOARD -->
@@ -160,12 +187,224 @@
                       loading="lazy"
                       referrerpolicy="no-referrer"
               ></iframe>
+              <aside class="notes">
+                  Refactoring in Headless Design, Undo/Redo via GURQ, Debug View
+              </aside>
+          </section>
+
+          <!-- Wie sieht das aus? -->
+          <section
+              style="
+                display: grid;
+                grid-template-rows: auto 1fr;
+                row-gap: 0.5em;
+                height: 100%;
+              "
+          >
+              <h3>Wie sieht das aus?</h3>
+              <div style="position: relative; width: 100%; height: 100%;">
+                  <img
+                      class="fragment current-visible"
+                      data-fragment-index="0"
+                      src="img/codex.jpg"
+                      alt="Codex output screenshot 1"
+                      style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; border-radius: 12px;"
+                  />
+                  <img
+                      class="fragment current-visible"
+                      data-fragment-index="1"
+                      src="img/codex2.jpg"
+                      alt="Codex output screenshot 2"
+                      style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; border-radius: 12px;"
+                  />
+              </div>
           </section>
 
           <!-- Was habe ich gelernt -->
           <section>
               <h1>Was habe ich gelernt?</h1>
           </section>
+
+          <section>
+              <h3>Funktionierender Code kann automatisch generiert werden.</h3>
+              <pre><code class="language-typescript">
+  const MIN_ZOOM = 0.4;
+  const MAX_ZOOM = 2.5;
+
+  function clampZoom(zoom: number) {
+      return Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, zoom));
+  }
+              </code></pre>
+          </section>
+
+          <section>
+              <h3>CLAUDE.md/AGENTS.md erlauben gute Steuerung des Verhaltens.</h3>
+              <pre><code class="language-markdown">
+## Commit messages
+
+Commit message should be in the "Conventional Commits" format,
+e.g. "feat(UI): Add about button to see version and build date".
+
+Below the first line include detail information about the
+changes made.
+              </code></pre>
+          </section>
+
+           <section>
+                  <h3>Was gut für LLM Agents ist, ist meistens gut für Entwickler</h3>
+                  <pre><code class="language-markdown">
+## Testing strategy
+
+Features should always be automatically tested to
+ensure proper functionality.
+
+Consult `docs/TESTING.md` when writing tests.
+              </code></pre>
+          </section>
+
+          <section>
+              <h3>LLMs sind Verstärker</h3>
+              <p class="fragment">GIGO ;-)</p>
+              <p class="fragment">Projekt-Prompts, Test harnesses, specs, linter und andere quality gates helfen dem LLM bessere Ergebnisse zu liefern.</p>
+          </section>
+
+          <section>
+              <h3>Schnelle Feedback-Loops sind wichtig</h3>
+              <p>System ist nur so schnell wie die langsamste Komponente</p>
+              <aside class="notes">
+                  Geschwindigkeit durch langsame Unit-Tests bremsen Entwicklung massiv aus
+              </aside>
+          </section>
+
+          <section>
+              <h3>Plan mode rules</h3>
+              <p>Detaillierte Umsetzungspläne helfen bei der effizienten Implementierung</p>
+              <aside class="notes">
+                  Claude/OpenCode: Plan Mode
+              </aside>
+          </section>
+
+          <section>
+              <h3>LLMs Tagebuch schreiben lassen</h3>
+              <pre style="font-size: 0.4em;"><code class="language-markdown">
+### 19:40 - Prevent context menu during right-click panning [gpt-5-codex]
+
+**User Prompt:**
+when using right click to drag, prevent the context menu from opening
+
+**Issues Encountered:**
+- None.
+
+**Decisions Made:**
+- Register a `contextmenu` handler on the board host to cancel right-click menus inside the canvas.
+- Add a test that verifies the contextmenu event is prevented.
+
+**Technical Info Consulted:**
+- `ui/src/board/BoardComponent.tsx`
+- `ui/src/board/BoardComponent.test.tsx`
+
+**Assumptions Made:**
+- Suppressing the context menu is desired only within the board surface.
+
+**Other Notes:**
+- `pnpm test` and `pnpm run check` both pass.
+              </code></pre>
+          </section>
+
+          <!-- Wie sieht die Zukunft aus -->
+          <section>
+              <h1>Wie sieht die Zukunft aus?</h1>
+          </section>
+
+          <section>
+              <h3>Die Entwicklung von Software wird günstiger werden (95%)</h3>
+          </section>
+
+          <section>
+              <h3>Es wird mehr Software geschrieben werden (95%)</h3>
+                           <a href="https://xkcd.com/1205/">
+                            <img src="https://imgs.xkcd.com/comics/is_it_worth_the_time_2x.png" style="width: 50%; height: auto;" />
+                            </a>
+          </section>
+
+          <section>
+              <h3>Exkurs: Jevons Paradox</h3>
+              <p>Effizienzsteigerungen senken Kosten und erhöhen dadurch den Bedarf.
+              <p>Klassisches Beispiel: Kohleverbrauch nach Erfindung von Watts Dampfmaschine</p>
+              <aside class="notes">
+                  Neues Beispiel: Energieverbrauch
+              </aside>
+          </section>
+
+          <section>
+              <h3>Entwicklertooling wird wichtiger werden (90%)</h3>
+              <ol>
+                  <li>Spezifikationen</li>
+                  <li>Tests</li>
+                  <li>Lints</li>
+                  <li>Quality checks</li>
+              </ol>
+          </section>
+
+          <section>
+              <h3>Toolingperformance wird wichtiger werden (90%)</h3>
+              <svg viewBox="0 0 860 300" width="90%" style="max-width: 860px; height: auto;">
+                  <style>
+                      .bar-label { font: 600 18px "Aptos", "Segoe UI", "Calibri", sans-serif; fill: #17324d; }
+                      .seg-label { font: 600 14px "Aptos", "Segoe UI", "Calibri", sans-serif; fill: #0b2239; }
+                      .axis-label { font: 600 14px "Aptos", "Segoe UI", "Calibri", sans-serif; fill: #244b6f; }
+                  </style>
+
+                  <!-- Row labels -->
+                  <text class="bar-label" x="30" y="95"></text>
+                  <text class="bar-label" x="30" y="185"></text>
+
+                  <!-- Top bar: implementation + verification + quality checks -->
+                  <rect x="220" y="65" width="80" height="36" fill="#ffb703"></rect>
+                  <rect x="300" y="65" width="180" height="36" fill="#90be6d"></rect>
+                  <rect x="480" y="65" width="160" height="36" fill="#f28482"></rect>
+
+                  <!-- Bottom bar: same non-implementation lengths, smaller implementation -->
+                  <rect x="241" y="155" width="38" height="36" fill="#ffb703"></rect>
+                  <rect x="279" y="155" width="180" height="36" fill="#90be6d"></rect>
+                  <rect x="459" y="155" width="160" height="36" fill="#f28482"></rect>
+
+                  <!-- Segment labels (top bar) -->
+                  <text class="seg-label" x="260" y="88" text-anchor="middle">Implementation</text>
+                  <text class="seg-label" x="390" y="88" text-anchor="middle">Verification</text>
+                  <text class="seg-label" x="560" y="88" text-anchor="middle">Quality checks</text>
+
+                  <!-- Segment labels (bottom bar) -->
+                  <text class="seg-label" x="260" y="178" text-anchor="middle">Implementation</text>
+                  <text class="seg-label" x="369" y="178" text-anchor="middle">Verification</text>
+                  <text class="seg-label" x="539" y="178" text-anchor="middle">Quality checks</text>
+
+              </svg>
+
+          </section>
+
+          <section>
+              <h3>Softwareentwicklung wird menschliche Richtungsgebung und Überprüfung brauchen (90%)</h3>
+              <p>LLMs produzieren die wahrscheinlichste Lösung, nicht die unbedingt die passende für den Anwendungsfall.</p>
+          </section>
+
+          <section>
+              <h3>Die Rolle der Softwareentwicklung wird sich mehr auf Architektur und Nutzeranforderungen fokussieren (85%)</h3>
+              <p>Unsere Aufgabe ist nicht Code zu schreiben, sondern Probleme zu lösen.</p>
+              <aside class="notes">
+                  Trend: höhere Abstraktion, automatische Registerallozierung, Instruction Selection, Garbage Collection
+              </aside>
+          </section>
+
+          <section>
+              <h2>Abschlussworte</h2>
+              <p class="fragment">Mächtiges Tooling, probiert es aus, macht euch selber ein Bild.</p>
+              <p class="fragment">Lasst uns drüber reden, wie wir das für uns nutzen können.</p>
+              <aside class="notes">
+                  Chance, mehr zu liefern, auch die Sachen, die aktuell durch die Ritzen fallen
+              </aside>
+          </section>
+
       </div>
     </div>
     <script src="node_modules/reveal.js/dist/reveal.js"></script>
