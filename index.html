@@ -10,13 +10,14 @@
     <link rel="stylesheet" href="node_modules/reveal.js/plugin/highlight/monokai.css" />
     <style>
       .reveal .slides section.heading-big-iframe {
-        --iframe-zoom: 0.7;
+        --iframe-scale: 0.7;
+        --iframe-header-offset: 8rem;
         display: grid;
         grid-template-rows: auto 1fr;
         row-gap: 0.5em;
         height: 100%;
         padding-top: 0;
-        overflow: hidden;
+        overflow: visible;
       }
 
 /*      .reveal .slides section.heading-big-iframe h2 {
@@ -25,12 +26,15 @@
       }*/
 
       .reveal .slides section.heading-big-iframe iframe {
+        display: block;
         justify-self: start;
-        width: calc(100% / var(--iframe-zoom));
+        width: calc(100% / var(--iframe-scale));
         max-width: none;
-        height: calc(100% / var(--iframe-zoom));
+        max-height: none;
+        height: calc((100% - var(--iframe-header-offset)) / var(--iframe-scale));
         border: 0;
-        zoom: var(--iframe-zoom);
+        transform: scale(var(--iframe-scale));
+        transform-origin: top left;
       }
     </style>
   </head>
@@ -98,7 +102,7 @@
 
           <!-- FELICO -->
           <section class="heading-big-iframe">
-              <h3>Skriptsprache + Interpreter</h3>
+              <h3>Skriptsprache + Interpreter (3 Tage)</h3>
             <iframe class="fragment"
               src="https://manuel-woelker.github.io/felico/"
               title="Felico"
@@ -109,7 +113,7 @@
 
           <!-- NOTENBANK -->
           <section class="heading-big-iframe">
-              <h3>Schulnotenverwaltung</h3>
+              <h3>Schulnotenverwaltung (8 Tage)</h3>
               <iframe class="fragment"
                       src="https://manuel-woelker.github.io/notenbank/"
                       title="Felico"
@@ -138,7 +142,7 @@
 
           <!-- FAB -->
           <section class="heading-big-iframe">
-              <h3>Card Auto Battler</h3>
+              <h3>Card Auto Battler (3 Tage)</h3>
               <iframe class="fragment"
                       src="https://manuel-woelker.github.io/fantasy-auto-battle/storybook/?path=/story/game-combatcomponent--slower-playback"
                       title="Felico"
@@ -149,13 +153,18 @@
 
           <!-- WIDEBOARD -->
           <section class="heading-big-iframe">
-              <h3>Miro Clone</h3>
+              <h3>Miro Clone (4 Tage)</h3>
               <iframe class="fragment"
                       src="https://manuel-woelker.github.io/wideboard/"
                       title="Felico"
                       loading="lazy"
                       referrerpolicy="no-referrer"
               ></iframe>
+          </section>
+
+          <!-- Was habe ich gelernt -->
+          <section>
+              <h1>Was habe ich gelernt?</h1>
           </section>
       </div>
     </div>
