@@ -3,32 +3,160 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Reveal.js Praesentation</title>
+    <title>2026-03-03 - Automatisches Programmieren mit LLMs - MW</title>
     <link rel="stylesheet" href="node_modules/reveal.js/dist/reset.css" />
     <link rel="stylesheet" href="node_modules/reveal.js/dist/reveal.css" />
-    <link rel="stylesheet" href="node_modules/reveal.js/dist/theme/white.css" id="theme" />
+    <link rel="stylesheet" href="node_modules/reveal.js/dist/theme/sky.css" id="theme" />
     <link rel="stylesheet" href="node_modules/reveal.js/plugin/highlight/monokai.css" />
+    <style>
+      .reveal .slides section.heading-big-iframe {
+        --iframe-zoom: 0.7;
+        display: grid;
+        grid-template-rows: auto 1fr;
+        row-gap: 0.5em;
+        height: 100%;
+        padding-top: 0;
+        overflow: hidden;
+      }
+
+/*      .reveal .slides section.heading-big-iframe h2 {
+        top: 0;
+        z-index: 2;
+      }*/
+
+      .reveal .slides section.heading-big-iframe iframe {
+        justify-self: start;
+        width: calc(100% / var(--iframe-zoom));
+        max-width: none;
+        height: calc(100% / var(--iframe-zoom));
+        border: 0;
+        zoom: var(--iframe-zoom);
+      }
+    </style>
   </head>
   <body>
     <div class="reveal">
       <div class="slides">
         <section>
-          <h1>Meine Praesentation</h1>
-          <p>Erstellt mit Reveal.js</p>
+          <h2>Automatisches Programmieren mit LLMs</h2>
+          <p>Manuel Woelker - 2026-03-03</p>
         </section>
         <section>
           <h2>Agenda</h2>
-          <ul>
-            <li>Einleitung</li>
-            <li>Hauptteil</li>
-            <li>Fazit</li>
-          </ul>
+          <ol>
+            <li>Was habe ich getan?</li>
+            <li>Was habe ich gelernt?</li>
+            <li>Wie sieht die Zukunft aus?</li>
+          </ol>
         </section>
-        <section>
-          <h2>Codebeispiel</h2>
-          <pre><code class="language-js">const message = "Hallo Reveal.js!";
-console.log(message);</code></pre>
+        <section
+          style="
+            position: relative;
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 0;
+          "
+        >
+          <div
+            style="
+              position: absolute;
+              top: 50%;
+              left: 0;
+              z-index: 2;
+              width: 100%;
+              display: flex;
+              justify-content: center;
+              gap: 6em;
+              transform: translateY(-50%);
+              padding: 0 0.5em;
+              box-sizing: border-box;
+            "
+          >
+            <h1 class="fragment" data-fragment-index="2">FUD</h1>
+            <h1 class="fragment" data-fragment-index="3">FOMO</h1>
+          </div>
+          <h1 class="fragment" data-fragment-index="0" style="margin: 0;">HYPE</h1>
+          <h1 class="fragment" data-fragment-index="1" style="margin: 1em 0 0 0;">DOOM</h1>
         </section>
+          <section>
+              <h2>Mal sehen was geht</h2>
+                <p class="fragment">Was kann man mit LLM-basierten, "automatischem Programmieren" machen?</p>
+                <p class="fragment">Regel: So wenig Code wie möglich schreiben.</p>
+
+          </section>
+          <section>
+              <h2>Tools</h2>
+              <ol>
+                  <li class="fragment">Claude Code Pro (23 €/Monat) - Opus/Sonnet/Haiku 4.5</li>
+                  <li class="fragment">OpenAI Free (0€) - ChatGPT Codex 5.2/5.3</li>
+                  <li class="fragment">OpenCode (0€) - Kimi 2.5/GLM 5/BigPickle</li>
+              </ol>
+          </section>
+
+          <!-- FELICO -->
+          <section class="heading-big-iframe">
+              <h3>Skriptsprache + Interpreter</h3>
+            <iframe class="fragment"
+              src="https://manuel-woelker.github.io/felico/"
+              title="Felico"
+              loading="lazy"
+              referrerpolicy="no-referrer"
+            ></iframe>
+          </section>
+
+          <!-- NOTENBANK -->
+          <section class="heading-big-iframe">
+              <h3>Schulnotenverwaltung</h3>
+              <iframe class="fragment"
+                      src="https://manuel-woelker.github.io/notenbank/"
+                      title="Felico"
+                      loading="lazy"
+                      referrerpolicy="no-referrer"
+              ></iframe>
+          </section>
+
+          <section class="heading-big-iframe">
+              <h3>+ Storybook</h3>
+              <iframe class="fragment"
+                      src="https://manuel-woelker.github.io/notenbank/storybook/?path=/docs/shared-gradeinputcomponent--docs"
+                      title="Felico"
+                      loading="lazy"
+                      referrerpolicy="no-referrer"
+              ></iframe>
+          </section>
+
+          <section class="heading-big-iframe">
+              <h3>+ Playwright E2E tests</h3>
+              <img src="img/playwright.png"
+              ></img>
+          </section>
+
+
+
+          <!-- FAB -->
+          <section class="heading-big-iframe">
+              <h3>Card Auto Battler</h3>
+              <iframe class="fragment"
+                      src="https://manuel-woelker.github.io/fantasy-auto-battle/storybook/?path=/story/game-combatcomponent--slower-playback"
+                      title="Felico"
+                      loading="lazy"
+                      referrerpolicy="no-referrer"
+              ></iframe>
+          </section>
+
+          <!-- WIDEBOARD -->
+          <section class="heading-big-iframe">
+              <h3>Miro Clone</h3>
+              <iframe class="fragment"
+                      src="https://manuel-woelker.github.io/wideboard/"
+                      title="Felico"
+                      loading="lazy"
+                      referrerpolicy="no-referrer"
+              ></iframe>
+          </section>
       </div>
     </div>
     <script src="node_modules/reveal.js/dist/reveal.js"></script>
