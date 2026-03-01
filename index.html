@@ -31,7 +31,7 @@
         z-index: 2;
       }*/
 
-      .reveal .slides section.heading-big-iframe iframe {
+      .reveal .slides section.heading-big-iframe iframe, .reveal .slides section.heading-big-iframe pre{
         display: block;
         justify-self: start;
         width: calc(100% / var(--iframe-scale));
@@ -155,6 +155,60 @@
           </section>
 
           <section class="heading-big-iframe">
+              <h3>+ Specs</h3>
+              <pre><code class="language-markdown" style="font-size: 25px; line-height: 25px;">
+# U2 Assessment
+
+## Overview
+
+The Assessment use case enables teachers to define, record, and evaluate student performance for a class. It covers written tests and oral performance, combines them into a final grade, and produces a grade overview per class and per student.
+
+## Data Model Overview
+
+The system maintains the following relationships:
+- Each assessment belongs to exactly one class and one subject
+- Each assessment has a type (e.g., written test or oral performance)
+- Each student can have multiple assessment results per subject
+- A final grade is derived from the assessment results of a student per subject
+
+## User Stories
+
+### Assessment Setup
+
+**Define assessment types and weights**
+As a teacher, I want to define assessment types (e.g., written test, oral grade) and their weights, so that final grades are calculated consistently.
+
+**Create an assessment**
+As a teacher, I want to create an assessment for a class and subject with a date and type, so that I can record results later.
+
+**Edit an assessment**
+As a teacher, I want to edit assessment metadata (date, type, weight), so that I can correct mistakes.
+
+**Delete an assessment**
+As a teacher, I want to delete an assessment, so that outdated or incorrect entries can be removed.
+
+### Recording Results
+
+**Enter results for a class**
+As a teacher, I want to enter results for all students in a class for a given assessment, so that the assessment is complete.
+
+**Enter or update a single result**
+As a teacher, I want to edit a single student's result, so that late changes or corrections are possible.
+
+**Handle missing results**
+As a teacher, I want to mark a result as missing (e.g., absent), so that calculations and reports are accurate.
+
+### Grade Calculation
+
+**Calculate final grade per subject**
+As a teacher, I want the system to calculate a student's final grade per subject using the defined weights, so that grading is consistent and transparent.
+
+**Preview calculation**
+As a teacher, I want to preview how the final grade is calculated from written and oral grades, so that I can verify correctness.
+              </code></pre>
+          </section>
+
+          <section class="heading-big-iframe">
               <h3>+ Storybook</h3>
               <iframe class="fragment"
                       src="https://manuel-woelker.github.io/notenbank/storybook/?path=/docs/shared-gradeinputcomponent--docs"
@@ -236,15 +290,41 @@
               <h1>Was habe ich gelernt?</h1>
           </section>
 
-          <section>
+          <section class="heading-big-iframe">
               <h3>Funktionierender Code kann automatisch generiert werden.</h3>
               <pre><code class="language-typescript">
-  const MIN_ZOOM = 0.4;
-  const MAX_ZOOM = 2.5;
-
-  function clampZoom(zoom: number) {
-      return Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, zoom));
+const getLinearGradeParameters = (anchors: GradeCurveAnchors) => {
+  if (anchors.grade1Value === anchors.grade4Value) {
+    throw new Error('Grade curve anchors must use distinct values.')
   }
+
+  const slope = (4 - 1) / (anchors.grade4Value - anchors.grade1Value)
+  const intercept = 1 - slope * anchors.grade1Value
+
+  return { slope, intercept }
+}
+
+const roundUpToHalfPoint = (value: number) => Math.ceil(value * 2) / 2
+
+/* 📖 # Why clamp and round the computed grade?
+Teachers enter raw points or errors, but grades must stay within the German
+grading scale and be expressed in 0.25 steps. Clamping keeps values within
+the allowed band, and rounding to 0.25 ensures consistent output for display
+and downstream calculations.
+*/
+export const calculateLinearGradeFromAnchors = (
+  value: number,
+  anchors: GradeCurveAnchors
+): Grade => {
+  const { slope, intercept } = getLinearGradeParameters(anchors)
+
+  const rawGrade = value * slope + intercept
+  const clamped = Math.min(6, Math.max(0.75, rawGrade))
+  const rounded = Math.ceil(clamped / 0.25) * 0.25
+  const finalGrade = Math.min(6, Math.max(0.75, rounded))
+
+  return createGrade(finalGrade)
+}
               </code></pre>
           </section>
 
@@ -276,7 +356,7 @@ Consult `docs/TESTING.md` when writing tests.
           <section>
               <h3>LLMs sind Verstärker</h3>
               <p class="fragment">GIGO ;-)</p>
-              <p class="fragment">Projekt-Prompts, Test harnesses, specs, linter und andere quality gates helfen dem LLM bessere Ergebnisse zu liefern.</p>
+              <p class="fragment">Projekt-Prompts, Test harnesses, specs, linter und andere quality gates helfen dem LLM bessere, Ergebnisse zu liefern.</p>
           </section>
 
           <section>
@@ -399,7 +479,6 @@ when using right click to drag, prevent the context menu from opening
                   <text class="seg-label" x="539" y="178" text-anchor="middle">Quality checks</text>
 
               </svg>
-
           </section>
 
           <section>
@@ -408,7 +487,7 @@ when using right click to drag, prevent the context menu from opening
           </section>
 
           <section>
-              <h3>Die Rolle der Softwareentwicklung wird sich mehr auf Architektur und Nutzeranforderungen fokussieren (85%)</h3>
+              <h3>Nutzerfeedback, Spezifikation, Tests und Architektur werden wichtiger werden (85%)</h3>
               <p>Unsere Aufgabe ist nicht Code zu schreiben, sondern Probleme zu lösen.</p>
               <aside class="notes">
                   Trend: höhere Abstraktion, automatische Registerallozierung, Instruction Selection, Garbage Collection
@@ -416,12 +495,35 @@ when using right click to drag, prevent the context menu from opening
           </section>
 
           <section>
+              <h3>
+              Wir werden immer noch ein mentales Modell der Problemstellung und der Lösung brauchen. (100%)
+              </h3>
+              <div  class="fragment">
+                  <p>
+                      "What I cannot create, I do not understand"
+                  </p>
+                  <footer>
+                      — <cite>Richard Feynman</cite>
+                  </footer>
+              </div>
+          </section>
+
+
+          <section>
               <h2>Abschlussworte</h2>
-              <p class="fragment">Mächtiges Tooling, probiert es aus, macht euch selber ein Bild.</p>
               <p class="fragment">Lasst uns drüber reden, wie wir das für uns nutzen können.</p>
+              <p class="fragment">Mächtiges Tooling, probiert es aus, macht euch selber ein Bild </p><p><small class="fragment">(nicht auf Firmenrechnern, am besten mit Sandbox)</small></p>
               <aside class="notes">
                   Chance, mehr zu liefern, auch die Sachen, die aktuell durch die Ritzen fallen
               </aside>
+          </section>
+          <section>
+              <p>
+                  "The best way to predict the future is to invent it"
+              </p>
+              <footer>
+                  — <cite>Alan Kay</cite>
+              </footer>
           </section>
 
       </div>
